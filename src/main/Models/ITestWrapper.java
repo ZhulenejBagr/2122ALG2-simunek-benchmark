@@ -9,13 +9,15 @@ public interface ITestWrapper {
     String getInfo();
     
     // get config file of test
-    File loadConfigFile();
+    boolean loadConfigFile();
     // get directory of config file
     String getConfigDirectory();
     // set config file directory
-    boolean setConfigDirectory();
+    boolean setConfigDirectory(String path);
     // create default config
-    File createDefaultConfigFile();
+    boolean createDefaultConfigFile();
+    // fill config with default values
+    boolean fillConfigWithDefault();
     
     // launch test
     void launch();
