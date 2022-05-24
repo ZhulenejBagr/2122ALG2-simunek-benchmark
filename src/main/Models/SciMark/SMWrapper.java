@@ -4,7 +4,6 @@ package main.Models.SciMark;
 import java.nio.charset.Charset;
 import jnt.scimark2.Constants;
 import jnt.scimark2.Random;
-import jnt.scimark2.commandline;
 import jnt.scimark2.kernel;
 import main.Models.EnvVars;
 import main.Models.ITestResult;
@@ -18,6 +17,9 @@ public class SMWrapper implements ITestWrapper {
         var w = new SMWrapper();
         w.launch();
     }
+    private static final String MS = "scimark";
+    
+    private static final String NAME = "SciMark 2.0";
     
     private static final String SUMMARY = 
             "SciMark 2.0 test, available at https://math.nist.gov/scimark2/";
@@ -54,6 +56,11 @@ public class SMWrapper implements ITestWrapper {
         configPath = DEFAULT_CONFIG_PATH;
         loggerPath = DEFAULT_LOGGER_PATH;
         conf = new SMConfig();      
+    }
+    
+    @Override
+    public String getName(){
+        return NAME;
     }
     
     
@@ -152,12 +159,6 @@ public class SMWrapper implements ITestWrapper {
     }
 
     @Override
-    public String getSystemInfo() {
-        // TODO get info of PC specs and JVM 
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public ITestResult getResult() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -179,6 +180,16 @@ public class SMWrapper implements ITestWrapper {
         }
         
         return false;
+    }
+
+    @Override
+    public String getVersion() {
+        return SMConstants.VERSION;
+    }
+
+    @Override
+    public String menuSelector() {
+        return MS;
     }
     
 }       

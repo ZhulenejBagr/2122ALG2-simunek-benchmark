@@ -25,7 +25,7 @@ public class SMConfig {
         if (testPasses < SMConstants.MIN_TEST_PASSES || testPasses > SMConstants.MAX_TEST_PASSES){
             return false;
         }
-        
+        // additional conditions when others config etries are added
         
         return true;
     }

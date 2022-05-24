@@ -3,11 +3,34 @@ package main.Models;
 public interface ITestWrapper {
     
     /**
+     * Gets te test name
+     * separate from getInfo() for display purposes
+     * @return the test name
+     */
+    String getName();
+    
+    
+    /**
      * Get summary about the test
      * Whatever info that is essential
      * @return General info about the test
      */
     String getInfo();
+    
+    
+    /**
+     * Get menu selector
+     * possible collisions with same tag
+     * @return The menu selector
+     */
+    String menuSelector();
+    
+    /**
+     * Get test version
+     * For test result purposes
+     * @return The test version in string format
+     */
+    String getVersion();
     
     /**
      * Method to load the config from the config file
@@ -49,12 +72,6 @@ public interface ITestWrapper {
      * Launch test with currently loaded configuration
      */
     void launch();
-    
-    /**
-     * Generate system info 
-     * @return System info summary
-     */ 
-    String getSystemInfo();
     
     /**
      * Get result of a test
