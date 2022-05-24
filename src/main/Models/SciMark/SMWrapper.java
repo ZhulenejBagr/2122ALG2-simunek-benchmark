@@ -25,9 +25,9 @@ public class SMWrapper implements ITestWrapper {
             "SciMark 2.0 test, available at https://math.nist.gov/scimark2/";
     
     // default directory of everything test-related
-    private static final String DEFAULT_DIRECTORY = EnvVars.testsDirectory + "\\SciMark;";
-    private static final String DEFAULT_CONFIG_PATH = DEFAULT_DIRECTORY + "config.txt";
-    private static final String DEFAULT_LOGGER_PATH = DEFAULT_DIRECTORY + "log.txt";
+    private static final String DEFAULT_DIRECTORY = EnvVars.testsDirectory + "\\SciMark";
+    private static final String DEFAULT_CONFIG_PATH = DEFAULT_DIRECTORY + "\\config.txt";
+    private static final String DEFAULT_LOGGER_PATH = DEFAULT_DIRECTORY + "\\log.txt";
     
     // default encoding charset for reading and writing
     private static final Charset ENC = Charset.forName("UTF8");
@@ -55,7 +55,7 @@ public class SMWrapper implements ITestWrapper {
         // initialize paths and config to default values
         configPath = DEFAULT_CONFIG_PATH;
         loggerPath = DEFAULT_LOGGER_PATH;
-        conf = new SMConfig();      
+        conf = new SMConfig(0);      
     }
     
     @Override
@@ -113,14 +113,30 @@ public class SMWrapper implements ITestWrapper {
 
     @Override
     public void launch() {
+        loadConfigFile();
         if (!conf.isValid()){
-            System.out.println("No valid config loaded, loading config from " + configPath + " ...");
-            if (!loadConfigFile()){
-                System.out.println("No available config at " + configPath);
-                System.out.println("Please select a valid config path before starting the test");
+            System.out.println("No valid config available, creating default config from at default path ...");
+            setConfigPathToDefault();
+            if (createDefaultConfigFile()) {
+                if (fillConfigWithDefault()) {
+                    loadConfigFile();
+                    System.out.println("Default config succesfully created at " + configPath);
+                }
+                else {
+                    System.out.println("Unable to access config file, exiting ...");
+                    return;
+                }
+            }
+            else{
+                System.out.println("Unable to access config file, exiting ...");
                 return;
             }
         }
+        else {
+            System.out.println("Valid config loaded from " + configPath);
+        }
+        
+        System.out.println("--- LAUNCHING TEST --- \n\n");
         
         Random R = new Random(Constants.RANDOM_SEED);
         
@@ -163,6 +179,11 @@ public class SMWrapper implements ITestWrapper {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public void setConfigPathToDefault(){
+        configPath = DEFAULT_CONFIG_PATH;
+    }
+    
+    
     @Override
     public boolean createDefaultConfigFile() {
         var status = TextFileTools.tryCreateFileAtPath(configPath);
@@ -188,7 +209,7 @@ public class SMWrapper implements ITestWrapper {
     }
 
     @Override
-    public String menuSelector() {
+    public String getMenuSelector() {
         return MS;
     }
     

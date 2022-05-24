@@ -1,2 +1,2 @@
-bruh
-sus
+% config file for SciMark test
+TEST_PASSES=1

@@ -16,14 +16,15 @@ public class Launcher {
     private MenuActions action;
     
     public void launch(){
-        // TODO while loop until quit is selected
-        System.out.println(DisplayStrings.startup());
-        
-        System.out.println(DisplayStrings.menu());
-        getUserInput();
-        
-        switchMenuAction();
-        
+        while (action != MenuActions.QUIT){
+            action = MenuActions.UNRECOGNIZED;
+            System.out.println(DisplayStrings.startup());
+
+            System.out.println(DisplayStrings.menu());
+            getUserInput();
+
+            switchMenuAction();
+        }
     }
     
     public Launcher(){
@@ -55,8 +56,7 @@ public class Launcher {
     private void switchMenuAction(){
         switch (action) {
             case SYS_INFO -> printSysInfo();
-            // TODO test listing should also allow launching
-            case TEST_LISTING -> printTestListing();
+            case TEST_LISTING -> launchableTestListing();
             case RESULT_LISTING -> printResultListing();
             case QUIT -> quit();
             default -> {}
@@ -68,8 +68,19 @@ public class Launcher {
         System.out.println(DisplayStrings.systemInfo());
     }
     
-    private void printTestListing(){
+    private void launchableTestListing(){
+        // print available tests
         System.out.println(DisplayStrings.createTestListing(testList));
+        
+        // take user input on what test to launch
+        System.out.println(DisplayStrings.selectTestDialog());
+        var select = sc.next();
+        for (var test : testList){
+            if (select == null ? test.getMenuSelector() == null : select.equals(test.getMenuSelector())){
+                test.launch();
+                return;
+            }
+        } 
     }
     
     private void printResultListing(){
@@ -77,6 +88,6 @@ public class Launcher {
     }
     
     private void quit(){
-        
+        System.out.println(DisplayStrings.exitMessage());
     }
 }

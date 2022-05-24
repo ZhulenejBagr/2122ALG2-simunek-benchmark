@@ -23,7 +23,7 @@ public interface ITestWrapper {
      * possible collisions with same tag
      * @return The menu selector
      */
-    String menuSelector();
+    String getMenuSelector();
     
     /**
      * Get test version

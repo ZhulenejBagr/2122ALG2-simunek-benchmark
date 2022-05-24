@@ -1,2 +1,0 @@
-% config file for SciMark test
-TEST_PASSES=5

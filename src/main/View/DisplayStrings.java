@@ -10,7 +10,7 @@ public class DisplayStrings {
     
     public static String startup() {
         var sb = new StringBuilder();
-        sb.append("Benchmark GUI\n");
+        sb.append("--- Benchmark GUI ---\n");
         return sb.toString();
     }
     
@@ -20,6 +20,7 @@ public class DisplayStrings {
         sb.append("Enter 'l' for test listing and launching\n");
         sb.append("Enter 'q' to quit application\n");
         sb.append("Enter 'r' to list local results\n");
+        sb.append("Entry: ");
         return sb.toString();
     }
     
@@ -42,16 +43,29 @@ public class DisplayStrings {
         var sb = new StringBuilder();
         var index = 1;
         sb.append("--- Available tests ---\n");
+        sb.append("index) name (launch selector)\n");
         
         for (var wr : list){
             sb.append(index++).append(") ");
-            sb.append(wr.getName()).append("\n");
+            sb.append(wr.getName()).append(" ");
+            sb.append("(").append(wr.getMenuSelector()).append(")\n");
         }
+        return sb.toString();
+    }
+    
+    public static String selectTestDialog(){
+        var sb = new StringBuilder();
+        sb.append("Enter the test launch selector to launch it, or enter anything else to return.\n");
+        sb.append("Entry: ");
         return sb.toString();
     }
     
     // TODO result listing
     public static String createResultListing(){
         return "";
+    }
+    
+    public static String exitMessage(){
+        return "Exiting...";
     }
 }
