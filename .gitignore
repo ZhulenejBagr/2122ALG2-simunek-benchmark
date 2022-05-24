@@ -1,8 +1,23 @@
-**/nbproject/private/
-**/nbproject/Makefile-*.mk
-**/nbproject/Package-*.bash
+### Java ###
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# Package Files #
+*.jar
+
+### NetBeans ###
+**/nbproject/
 build/
-nbbuild/
 dist/
-nbdist/
-.nb-gradle/
+build.xml
+manifest.mf
+
+### Intellij ###
+.idea/**/
+out/
+
+### Mac ###
+.DS_Store
