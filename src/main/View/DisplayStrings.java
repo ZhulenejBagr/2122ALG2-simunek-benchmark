@@ -16,10 +16,11 @@ public class DisplayStrings {
     
     public static String menu() {
         var sb = new StringBuilder();
-        sb.append("Enter 'i' for system info\n");
-        sb.append("Enter 'l' for test listing and launching\n");
-        sb.append("Enter 'q' to quit application\n");
-        sb.append("Enter 'r' to list local results\n");
+        sb.append("Enter 'S' for system info\n");
+        sb.append("Enter 'L' for test listing and launching\n");
+        sb.append("Enter 'Q' to quit application\n");
+        sb.append("Enter 'R' to list local results\n");
+        sb.append("Enter 'H' to display help info");
         sb.append("Entry: ");
         return sb.toString();
     }
@@ -67,5 +68,20 @@ public class DisplayStrings {
     
     public static String exitMessage(){
         return "Exiting...";
+    }
+    
+    public static String helpMenu(){
+        var sb = new StringBuilder();
+        
+        sb.append("--- HELP MENU ---\n");
+        sb.append("GUI wrapper app for benchmarking hardware using multiple registered tests\n");
+        sb.append("Description of individual selectors in menu: \n");
+        sb.append("S - Displays system information that is available to the JVM\n");
+        sb.append("L - Lists available tests and gives the ability to launch them by entering their selector name\n");
+        sb.append("R - Not yet implemented\n");
+        sb.append("Q - Quits the application\n");
+        sb.append("Press ENTER to return to the main menu...\n");
+        
+        return sb.toString();
     }
 }

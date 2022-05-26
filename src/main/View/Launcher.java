@@ -9,8 +9,8 @@ import main.Models.SciMark.SMWrapper;
 
 
 public class Launcher {
+    // TODO separate GUI from inner launcher logic
     private final Scanner sc = new Scanner(System.in);
-    
     
     private final List<ITestWrapper> testList;
     private MenuActions action;
@@ -59,6 +59,7 @@ public class Launcher {
             case TEST_LISTING -> launchableTestListing();
             case RESULT_LISTING -> printResultListing();
             case QUIT -> quit();
+            case HELP -> printHelp();
             default -> {}
         }
     }
@@ -81,6 +82,11 @@ public class Launcher {
                 return;
             }
         } 
+    }
+    
+    private void printHelp(){
+        System.out.println(DisplayStrings.helpMenu());
+        sc.next();
     }
     
     private void printResultListing(){
