@@ -17,4 +17,4 @@ Uložení výsledku do databáze, zahrnutí infa o systému, výpis výsledků z
 
 ## TODO
 
-logger, better result, result saving, result display and search
+logger, better result, result saving, result display and search, separate inner launcher logic from GUI, change package naming
