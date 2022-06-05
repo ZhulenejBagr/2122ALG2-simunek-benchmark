@@ -1,4 +1,4 @@
-package main.Models.SciMark;
+package com.tul.simunek.semproj.app.utils;
 
 
 public class SMConfig {

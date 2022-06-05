@@ -1,5 +1,5 @@
 
-package main.libs;
+package com.tul.simunek.semproj.app.utils.libs;
 
 
 public enum FileStatus {

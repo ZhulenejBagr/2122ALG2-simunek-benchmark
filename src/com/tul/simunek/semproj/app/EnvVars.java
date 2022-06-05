@@ -1,5 +1,5 @@
 
-package main.Models;
+package com.tul.simunek.semproj.app;
 
 public class EnvVars {
     private EnvVars() {

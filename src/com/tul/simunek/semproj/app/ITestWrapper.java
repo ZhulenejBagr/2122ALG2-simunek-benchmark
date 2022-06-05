@@ -1,4 +1,4 @@
-package main.Models;
+package com.tul.simunek.semproj.app;
 
 public interface ITestWrapper {
     

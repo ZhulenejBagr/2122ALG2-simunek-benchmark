@@ -1,8 +1,8 @@
 
-package main.View;
+package com.tul.simunek.semproj.app.ui;
 
 import java.util.List;
-import main.Models.ITestWrapper;
+import com.tul.simunek.semproj.app.ITestWrapper;
 
 public class DisplayStrings {
     private DisplayStrings() {

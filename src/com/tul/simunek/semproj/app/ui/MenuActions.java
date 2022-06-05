@@ -1,5 +1,5 @@
 
-package main.View;
+package com.tul.simunek.semproj.app.ui;
 
 
 public enum MenuActions {

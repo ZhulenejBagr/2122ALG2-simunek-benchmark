@@ -1,15 +1,15 @@
 
-package main.Models.SciMark;
+package com.tul.simunek.semproj.app.utils;
 
 import java.nio.charset.Charset;
 import jnt.scimark2.Constants;
 import jnt.scimark2.Random;
 import jnt.scimark2.kernel;
-import main.Models.EnvVars;
-import main.Models.ITestResult;
-import main.Models.ITestWrapper;
-import main.libs.FileStatus;
-import main.libs.TextFileTools;
+import com.tul.simunek.semproj.app.EnvVars;
+import com.tul.simunek.semproj.app.ITestResult;
+import com.tul.simunek.semproj.app.ITestWrapper;
+import com.tul.simunek.semproj.app.utils.libs.FileStatus;
+import com.tul.simunek.semproj.app.utils.libs.TextFileTools;
 
 
 public class SMWrapper implements ITestWrapper {

@@ -1,11 +1,11 @@
 
-package main.View;
+package com.tul.simunek.semproj.app.ui;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import main.Models.ITestWrapper;
-import main.Models.SciMark.SMWrapper;
+import com.tul.simunek.semproj.app.ITestWrapper;
+import com.tul.simunek.semproj.app.utils.SMWrapper;
 
 
 public class Launcher {
