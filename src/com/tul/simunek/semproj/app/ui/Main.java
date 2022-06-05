@@ -1,19 +1,18 @@
 
 package com.tul.simunek.semproj.app.ui;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.tul.simunek.semproj.app.Launcher;
 import java.util.Scanner;
-import com.tul.simunek.semproj.app.ITestWrapper;
-import com.tul.simunek.semproj.app.utils.SMWrapper;
 
-
-public class Launcher {
-    // TODO separate GUI from inner launcher logic
-    private final Scanner sc = new Scanner(System.in);
+/**
+ *
+ * @author Bagr
+ */
+public class Main {
+    private static Launcher l = new Launcher();
+    private static MenuActions action = MenuActions.UNRECOGNIZED;
+    private static final Scanner sc = new Scanner(System.in);
     
-    private final List<ITestWrapper> testList;
-    private MenuActions action;
     
     public void launch(){
         while (action != MenuActions.QUIT){
@@ -27,15 +26,8 @@ public class Launcher {
         }
     }
     
-    public Launcher(){
-        action = MenuActions.UNRECOGNIZED;
-        testList = new ArrayList<>();
-        testList.add(new SMWrapper());
-    }
-    
     public static void main(String[] args) {
-        Launcher l = new Launcher();
-        l.launch();
+        l = new Launcher();
     }
     
     private void getUserInput(){
@@ -70,13 +62,16 @@ public class Launcher {
     }
     
     private void launchableTestListing(){
+        // get test listing from launcher
+        var tests = l.getList();
+
         // print available tests
-        System.out.println(DisplayStrings.createTestListing(testList));
+        System.out.println(DisplayStrings.createTestListing(tests));
         
-        // take user input on what test to launch
+        // take user input on what test to launch or to quit
         System.out.println(DisplayStrings.selectTestDialog());
         var select = sc.next();
-        for (var test : testList){
+        for (var test : tests){
             if (select == null ? test.getMenuSelector() == null : select.equals(test.getMenuSelector())){
                 test.launch();
                 return;

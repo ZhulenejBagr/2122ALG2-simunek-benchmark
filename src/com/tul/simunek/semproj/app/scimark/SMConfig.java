@@ -1,4 +1,4 @@
-package com.tul.simunek.semproj.app.utils;
+package com.tul.simunek.semproj.app.scimark;
 
 
 public class SMConfig {

@@ -1,5 +1,5 @@
 
-package com.tul.simunek.semproj.app.utils;
+package com.tul.simunek.semproj.app.scimark;
 
 import java.nio.charset.Charset;
 import jnt.scimark2.Constants;
@@ -8,8 +8,8 @@ import jnt.scimark2.kernel;
 import com.tul.simunek.semproj.app.EnvVars;
 import com.tul.simunek.semproj.app.ITestResult;
 import com.tul.simunek.semproj.app.ITestWrapper;
-import com.tul.simunek.semproj.app.utils.libs.FileStatus;
-import com.tul.simunek.semproj.app.utils.libs.TextFileTools;
+import com.tul.simunek.semproj.app.utils.FileStatus;
+import com.tul.simunek.semproj.app.utils.TextFileTools;
 
 
 public class SMWrapper implements ITestWrapper {

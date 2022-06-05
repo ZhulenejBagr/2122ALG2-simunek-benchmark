@@ -1,4 +1,4 @@
-package com.tul.simunek.semproj.app.utils.libs;
+package com.tul.simunek.semproj.app.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
