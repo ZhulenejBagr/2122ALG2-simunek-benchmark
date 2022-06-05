@@ -3,10 +3,11 @@ package com.tul.simunek.semproj.app.ui;
 
 
 public enum MenuActions {
-    SYS_INFO('i'),
-    TEST_LISTING('l'),
-    RESULT_LISTING('r'),
-    QUIT('q'),
+    SYS_INFO('S'),
+    TEST_LISTING('L'),
+    RESULT_LISTING('R'),
+    QUIT('Q'),
+    HELP('H'),
     UNRECOGNIZED(Character.MIN_VALUE);
     
     private final char menuSelector;
