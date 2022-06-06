@@ -15,6 +15,3 @@ Načtení konfigurace, spuštění testu(ů), zobrazení (uložení) výsledků,
 3. Uložení výsledků do databáze  
 Uložení výsledku do databáze, zahrnutí infa o systému, výpis výsledků z databáze (dle kritérií - komparátor, regex)
 
-## TODO
-
-better result, result saving, result display and search
