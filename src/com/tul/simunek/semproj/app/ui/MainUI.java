@@ -1,15 +1,21 @@
 
 package com.tul.simunek.semproj.app.ui;
 
+import com.tul.simunek.semproj.app.ITestResult;
 import com.tul.simunek.semproj.app.Launcher;
+import com.tul.simunek.semproj.app.ResultDatabase;
 import java.util.Scanner;
 
 
 public class MainUI {
     private MenuActions action;
     private final Scanner sc = new Scanner(System.in);
-    private Launcher l;
+    private final Launcher l;
+    private final ResultDatabase database;
     
+    /**
+     * Hlavní metoda uživatelského rozhraní
+     */
     public void launch(){
         while (action != MenuActions.QUIT){
             action = MenuActions.UNRECOGNIZED;
@@ -25,6 +31,8 @@ public class MainUI {
     public MainUI(){
         action = MenuActions.UNRECOGNIZED;
         l = new Launcher();
+        database = new ResultDatabase();
+        database.fillWithSampleData();
     }
     
     private void getUserInput(){
@@ -71,6 +79,11 @@ public class MainUI {
         for (var test : tests){
             if (select == null ? test.getMenuSelector() == null : select.equals(test.getMenuSelector())){
                 test.launch();
+                var result = test.getResult();
+                if (result.isScoreValid()){
+                    database.addResult(test.getResult());
+                }
+                printTestFinished(result);
                 return;
             }
         } 
@@ -82,10 +95,20 @@ public class MainUI {
     }
     
     private void printResultListing(){
-        System.out.println(DisplayStrings.createResultListing());
+        System.out.println(DisplayStrings.createResultListing(database.getResults()));
+        System.out.println("\nEnter 'S' to sort the results, else enter anything else to return to the main menu");
+        var i = getFirstChar();
+        if (i == 'S') {
+            database.sortByTestThenByScore();
+            System.out.println(DisplayStrings.createResultListing(database.getResults()));
+        }
     }
     
     private void quit(){
         System.out.println(DisplayStrings.exitMessage());
+    }
+    
+    private void printTestFinished(ITestResult result){
+        System.out.println(DisplayStrings.formatResult(result));
     }
 }

@@ -18,6 +18,10 @@ public class Launcher {
         testList.add(new SMWrapper());
     }
     
+    /**
+     * Získat list registrovaných testů v launcheru
+     * @return list registrovaných testů
+     */
     public List<ITestWrapper> getList(){
         return testList;
     }

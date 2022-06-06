@@ -10,6 +10,7 @@ import com.tul.simunek.semproj.app.ITestResult;
 import com.tul.simunek.semproj.app.ITestWrapper;
 import com.tul.simunek.semproj.app.utils.FileStatus;
 import com.tul.simunek.semproj.app.utils.TextFileTools;
+import java.time.LocalDateTime;
 
 
 public class SMWrapper implements ITestWrapper {
@@ -49,6 +50,9 @@ public class SMWrapper implements ITestWrapper {
     
     // logger instance
     private SMLogger logger;
+    
+    // result instance
+    private SMResult result;
     
     /**
      *  Constructor for the SM test wrapper
@@ -127,6 +131,8 @@ public class SMWrapper implements ITestWrapper {
 
     @Override
     public void launch() {
+        var startTime = LocalDateTime.now();
+        
         logger.startLogging();
         
         if (!loadConfigFile()){
@@ -190,14 +196,15 @@ public class SMWrapper implements ITestWrapper {
         }
         
         logger.WriteToFile("Final score " + res[5]);
-        
-        System.out.println("Final score: " + res[5]);
-        
+
+        var systemInfo = new String[] {"x86 CPU"};
+        var finishTime = LocalDateTime.now();
+        result = new SMResult(startTime, finishTime, systemInfo, res[5]);
     }
 
     @Override
     public ITestResult getResult() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return result;
     }
 
     public void setConfigPathToDefault(){

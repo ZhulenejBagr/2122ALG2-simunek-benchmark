@@ -1,6 +1,7 @@
 
 package com.tul.simunek.semproj.app.ui;
 
+import com.tul.simunek.semproj.app.ITestResult;
 import java.util.List;
 import com.tul.simunek.semproj.app.ITestWrapper;
 
@@ -8,23 +9,37 @@ public class DisplayStrings {
     private DisplayStrings() {
     }
     
+    /**
+     * Řetězec, který se vypisuje při zapnutí aplikace
+     * @return příslušný řetězec
+     */
     public static String startup() {
         var sb = new StringBuilder();
         sb.append("--- Benchmark GUI ---\n");
         return sb.toString();
     }
     
+    
+    /**
+     * Řetězec menu
+     * @return příslušný řetězec
+     */
     public static String menu() {
         var sb = new StringBuilder();
         sb.append("Enter 'S' for system info\n");
         sb.append("Enter 'L' for test listing and launching\n");
         sb.append("Enter 'Q' to quit application\n");
         sb.append("Enter 'R' to list local results\n");
-        sb.append("Enter 'H' to display help info");
+        sb.append("Enter 'H' to display help info\n");
         sb.append("Entry: ");
         return sb.toString();
     }
     
+    
+    /**
+     * Řetězec se systémovými informacemi
+     * @return příslušný řetězec
+     */
     public static String systemInfo(){
         // only simple info that is available to the JVM
         // to get more/other info, external library or OS level 
@@ -40,6 +55,12 @@ public class DisplayStrings {
         return sb.toString();
     }
     
+    
+    /**
+     * Výpis všech dostupných testů
+     * @param list list s testy
+     * @return řetězec se zformátovaným výpisem
+     */
     public static String createTestListing(List<ITestWrapper> list){
         var sb = new StringBuilder();
         var index = 1;
@@ -54,6 +75,11 @@ public class DisplayStrings {
         return sb.toString();
     }
     
+    
+    /**
+     * Dialog pro výběr testu ke spuštění
+     * @return příslušný řetězec
+     */
     public static String selectTestDialog(){
         var sb = new StringBuilder();
         sb.append("Enter the test launch selector to launch it, or enter anything else to return.\n");
@@ -61,15 +87,47 @@ public class DisplayStrings {
         return sb.toString();
     }
     
-    // TODO result listing
-    public static String createResultListing(){
-        return "";
+    
+    /**
+     * Výpis výsledků testů v lokální databázi
+     * @param list list výsledků
+     * @return zformátovaný řetězec s výpisem výsledků
+     */
+    public static String createResultListing(List<ITestResult> list){
+        var sb = new StringBuilder();
+        sb.append(" --- RESULT LISTING ---\n\n");
+        sb.append("Listing ").append(list.size()).append(" test results\n\n");
+        
+        for (var r : list){
+            sb.append(r.getTestID()).append("  ");
+            sb.append(String.format("%.2f", r.getTestScore())).append("  ");
+            var t = r.getStartTime();
+            sb.append(String.format("%02d:%02d:%02d", t.getHour(), t.getMinute(), t.getSecond())).append(" ");
+            sb.append(String.format("%d.%d.%d", t.getDayOfMonth(), t.getMonthValue(), t.getYear())).append("  ");
+            sb.append(r.getTestRunTimeMilis() / 1000d).append("s  ");
+            
+            for (var s : r.getTestSystemInfo()){
+                sb.append(s).append(", ");
+            }
+            
+            sb.append("\n");
+        }
+        
+        return sb.toString();
     }
     
+    /**
+     * Zpráva na výpis při ukončení aplikace
+     * @return příslušný řetězec
+     */
     public static String exitMessage(){
         return "Exiting...";
     }
     
+    /**
+     * Výpis pomoci k příkazům
+     * @return příslušný řetězec
+     */
     public static String helpMenu(){
         var sb = new StringBuilder();
         
@@ -82,6 +140,19 @@ public class DisplayStrings {
         sb.append("Q - Quits the application\n");
         sb.append("Press ENTER to return to the main menu...\n");
         
+        return sb.toString();
+    }
+    
+    /**
+     * Zformátování jednotlivého výsledku po dokončení testu
+     * @param result výsledek ke zformátování
+     * @return příslušný řetězec
+     */
+    public static String formatResult(ITestResult result){
+        var sb = new StringBuilder();
+        sb.append("Test ").append(result.getTestID());
+        sb.append(" finished with a score of ").append(result.getTestScore());
+        sb.append(".\n").append("returning to main menu");
         return sb.toString();
     }
 }
