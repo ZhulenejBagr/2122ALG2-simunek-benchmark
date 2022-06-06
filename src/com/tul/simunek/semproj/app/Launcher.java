@@ -1,10 +1,9 @@
 
 package com.tul.simunek.semproj.app;
 
+import com.tul.simunek.semproj.app.scimark.SMWrapper;
 import java.util.ArrayList;
 import java.util.List;
-import com.tul.simunek.semproj.app.scimark.SMWrapper;
-
 
 public class Launcher {
     

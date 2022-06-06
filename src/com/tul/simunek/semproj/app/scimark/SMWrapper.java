@@ -47,6 +47,9 @@ public class SMWrapper implements ITestWrapper {
     // loaded config contents
     private SMConfig conf;
     
+    // logger instance
+    private SMLogger logger;
+    
     /**
      *  Constructor for the SM test wrapper
      *  
@@ -55,6 +58,8 @@ public class SMWrapper implements ITestWrapper {
         // initialize paths and config to default values
         configPath = DEFAULT_CONFIG_PATH;
         loggerPath = DEFAULT_LOGGER_PATH;
+        logger = new SMLogger();
+        logger.setFilePath(loggerPath);
         conf = new SMConfig(0);      
     }
     
@@ -68,11 +73,18 @@ public class SMWrapper implements ITestWrapper {
     public String getInfo() {
         return SUMMARY;
     }
+    
+    public static Charset getEncoding() {
+        return ENC;
+    }
 
     @Override
     public boolean loadConfigFile() {
+        logger.WriteToFile("Loading config from " + configPath + " ...");
         String[] cfcontent = TextFileTools.tryReadFile(configPath, ENC);
-        
+        if (cfcontent == new String[0]) {
+            logger.WriteToFile("Error loading config at " + configPath + " !" );
+        }
         var config = new SMConfig(0);
         
         for (String line : cfcontent){
@@ -82,7 +94,7 @@ public class SMWrapper implements ITestWrapper {
             switch (identifier){
                 case "TEST_PASSES" -> {
                     try {
-                        conf.setTestPasses(Integer.parseInt(split[1]));
+                        config.setTestPasses(Integer.parseInt(split[1]));
                     }
                     catch (NumberFormatException ex){
                     }
@@ -92,8 +104,10 @@ public class SMWrapper implements ITestWrapper {
         
         if (config.isValid()){
             conf = config;
+            logger.WriteToFile("Loaded config is valid");
             return true;
         }
+        logger.WriteToFile("Loaded config is invalid");
         return false;
     }
     
@@ -113,30 +127,32 @@ public class SMWrapper implements ITestWrapper {
 
     @Override
     public void launch() {
-        loadConfigFile();
-        if (!conf.isValid()){
-            System.out.println("No valid config available, creating default config from at default path ...");
+        logger.startLogging();
+        
+        if (!loadConfigFile()){
+            logger.WriteToFile("No valid config available, creating default config from at default path ...");
             setConfigPathToDefault();
             if (createDefaultConfigFile()) {
                 if (fillConfigWithDefault()) {
                     loadConfigFile();
-                    System.out.println("Default config succesfully created at " + configPath);
+                    logger.WriteToFile("Default config succesfully created at " + configPath);
                 }
                 else {
-                    System.out.println("Unable to access config file, exiting ...");
+                    logger.WriteToFile("Unable to access config file, exiting ...");
                     return;
                 }
             }
             else{
-                System.out.println("Unable to access config file, exiting ...");
+                logger.WriteToFile("Unable to access config file, exiting ...");
                 return;
             }
         }
         else {
-            System.out.println("Valid config loaded from " + configPath);
+            logger.WriteToFile("Valid config loaded from " + configPath + ", commencing test launch.");
         }
         
         System.out.println("--- LAUNCHING TEST --- \n\n");
+        logger.WriteToFile("Launching test");
         
         Random R = new Random(Constants.RANDOM_SEED);
         
@@ -151,16 +167,21 @@ public class SMWrapper implements ITestWrapper {
         var res = new double[6];
         
         for (int i = 0; i < conf.getTestPasses(); i++){
-            System.out.println("Running testpass " + (i + 1));
+            logger.WriteToFile("Running testpass " + (i + 1));
             res[0] += kernel.measureFFT(FFT_size, min_time, R);
+            logger.WriteToFile("FFT score " + res[0]);
             res[0] /= 2;
             res[1] += kernel.measureSOR(SOR_size, min_time, R);
+            logger.WriteToFile("SOR score " + res[1]);
             res[1] /= 2;
             res[2] += kernel.measureMonteCarlo(min_time, R);
+            logger.WriteToFile("MonteCarlo score " + res[2]);
             res[2] /= 2;
             res[3] += kernel.measureSparseMatmult(Sparse_size_M, Sparse_size_nz, min_time, R);
+            logger.WriteToFile("Sparse score " + res[3]);
             res[3] /= 2;
             res[4] += kernel.measureLU(LU_size, min_time, R);
+            logger.WriteToFile("LU score " + res[4]);
             res[4] /= 2;
         }
         
@@ -168,7 +189,7 @@ public class SMWrapper implements ITestWrapper {
             res[5] += res[j];
         }
         
-        
+        logger.WriteToFile("Final score " + res[5]);
         
         System.out.println("Final score: " + res[5]);
         

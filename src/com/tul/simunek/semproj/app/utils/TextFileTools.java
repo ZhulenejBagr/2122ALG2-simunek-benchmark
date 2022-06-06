@@ -45,13 +45,12 @@ public class TextFileTools {
     }
     
     public static boolean tryWriteToFile(String path, String[] content, Charset ch){
-        try (BufferedWriter w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), ch))) {
-            
+        try (BufferedWriter w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path, true), ch))){
             for (String s : content) {
-                w.write(s);
+                w.append(s);
                 w.newLine();
-                w.flush();
             }
+            w.close();
             return true;
         }
         catch (FileNotFoundException ex) {
