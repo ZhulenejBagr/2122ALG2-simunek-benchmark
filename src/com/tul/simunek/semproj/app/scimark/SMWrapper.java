@@ -11,6 +11,7 @@ import com.tul.simunek.semproj.app.ITestWrapper;
 import com.tul.simunek.semproj.utils.FileStatus;
 import com.tul.simunek.semproj.utils.TextFileTools;
 import java.time.LocalDateTime;
+import java.util.regex.Pattern;
 
 
 public class SMWrapper implements ITestWrapper {
@@ -93,15 +94,17 @@ public class SMWrapper implements ITestWrapper {
         
         for (String line : cfcontent){
             String[] split = line.split("=");
-            var identifier = split[0];      
             
-            switch (identifier){
-                case "TEST_PASSES" -> {
-                    try {
-                        config.setTestPasses(Integer.parseInt(split[1]));
-                    }
-                    catch (NumberFormatException ex){
-                    }
+            var tp_name = "TEST_PASSES";
+            var tp_regex = Pattern.compile(String.format("^(%s=[0-5]?[0-9])", tp_name));
+            var matcher = tp_regex.matcher(line);
+            if (matcher.find()){
+                try {
+                    config.setTestPasses(Integer.parseInt(split[1]));
+                }
+                catch (NumberFormatException ex){
+                    config.setTestPasses(0);
+                    logger.WriteToFile("Incorrect number format in config line: " + line);
                 }
             }
         }

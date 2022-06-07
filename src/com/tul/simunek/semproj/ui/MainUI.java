@@ -32,7 +32,6 @@ public class MainUI {
         action = MenuActions.UNRECOGNIZED;
         l = new Launcher();
         database = new ResultDatabase();
-        database.fillWithSampleData();
     }
     
     private void getUserInput(){

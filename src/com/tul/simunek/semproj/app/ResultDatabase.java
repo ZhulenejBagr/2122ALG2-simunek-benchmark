@@ -3,6 +3,8 @@ package com.tul.simunek.semproj.app;
 
 import com.tul.simunek.semproj.app.scimark.SMResult;
 import com.tul.simunek.semproj.utils.BinaryFileTools;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -16,16 +18,26 @@ public class ResultDatabase {
         new SMResult(LocalDateTime.of(2022, Month.of(6), 6, 9, 0, 0, 0), LocalDateTime.of(2022, Month.of(6), 6, 9, 1, 0, 0), new String[] {"generic x86 CPU"}, 3400)
     };
     
+    private final static String DB_PATH = EnvVars.testsDirectory + "\\db";
+    
     public static void main(String[] args) {
         var r = new ResultDatabase();
-        r.fillWithSampleData();
-        System.out.println(r.serialize());
+        //r.fillWithSampleData();
+        //System.out.println(r.serialize());
+        System.out.println(r.deserialize());
+        System.out.println("");
     }
     
-    private final List<ITestResult> results;
+    private List<ITestResult> results;
     
     public ResultDatabase(){
-        results = new ArrayList<>();
+        if (doesDBFileExist()){
+            deserialize();
+        }
+        else {
+            results = new ArrayList<>();
+            serialize();
+        }
     }
     
     /**
@@ -34,7 +46,9 @@ public class ResultDatabase {
      * @return jestli bylo uložení úspěšné
      */
     public boolean addResult(ITestResult res){
-        return results.add(res);
+        var status = results.add(res);
+        serialize();
+        return status;
     }
     
     
@@ -62,12 +76,34 @@ public class ResultDatabase {
                 (x, y) -> y.compareTo(x) == 0 ? Double.compare(y.getTestScore(), x.getTestScore()) : y.compareTo(x));
     }
     
+    private boolean doesDBFileExist(){
+        return new File(DB_PATH).exists();
+    }
+    
+    
     /**
-     * !UNFINISHED!
-     * Serialize data into binary file
+     * Serialize DB data and save to file
      * @return result of serialization
      */
-    public boolean serialize() {
-        return BinaryFileTools.writeToBinary(results.toArray(), "/test/bruh.txt");
+    private boolean serialize() {
+        try {
+            BinaryFileTools.<ITestResult>writeToBinary(results, DB_PATH);
+            return true;
+        } catch (IOException ex) {
+            return false;
+        }
+    }
+    
+    /**
+     * Deserialize data from the DB file
+     * @return result of deserialization
+     */
+    private boolean deserialize() {
+        try {
+            results = BinaryFileTools.parseDatabaseFromBinary(DB_PATH);
+            return true;
+        } catch (IOException | ClassNotFoundException ex) {
+            return false;
+        }
     }
 }

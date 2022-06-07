@@ -97,15 +97,15 @@ public class DisplayStrings {
         var sb = new StringBuilder();
         sb.append(" --- RESULT LISTING ---\n\n");
         sb.append("Listing ").append(list.size()).append(" test results\n\n");
-        sb.append("TESTNAME   SCORE   TIME   DATE   DURATION_ms   SYS_INFO\n\n");
-        
+        sb.append("    TESTNAME       SCORE        TIME           DATE   DURATION_ms           SYS_INFO\n\n");
+         
         for (var r : list){
-            sb.append(r.getTestID()).append("  ");
-            sb.append(String.format("%.2f", r.getTestScore())).append("  ");
+            sb.append(String.format("%12s", r.getTestID()));
+            sb.append(String.format("%12s", String.format("%.01f", r.getTestScore())));
             var t = r.getStartTime();
-            sb.append(String.format("%02d:%02d:%02d", t.getHour(), t.getMinute(), t.getSecond())).append(" ");
-            sb.append(String.format("%d.%d.%d", t.getDayOfMonth(), t.getMonthValue(), t.getYear())).append("  ");
-            sb.append(r.getTestRunTimeMilis() / 1000d).append("s  ");
+            sb.append(String.format("%13s", String.format("%02d:%02d:%02d", t.getHour(), t.getMinute(), t.getSecond())));
+            sb.append(String.format("%14s", String.format("%d.%d.%d", t.getDayOfMonth(), t.getMonthValue(), t.getYear())));
+            sb.append(String.format("%14s", String.format("%.03f", r.getTestRunTimeMilis() / 1000d))).append("    ");
             
             for (var s : r.getTestSystemInfo()){
                 sb.append(s).append(", ");
