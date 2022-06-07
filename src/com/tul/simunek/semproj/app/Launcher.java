@@ -11,10 +11,10 @@ public class Launcher {
     
     public Launcher(){
         testList = new ArrayList<>();
-        RegisterAvailableTests();
+        registerAvailableTests();
     }
     
-    private void RegisterAvailableTests(){
+    private void registerAvailableTests(){
         testList.add(new SMWrapper());
     }
     

@@ -2,9 +2,9 @@
 package com.tul.simunek.semproj.app.scimark;
 
 import com.tul.simunek.semproj.app.ITestLogger;
-import com.tul.simunek.semproj.app.utils.Stopwatch;
-import com.tul.simunek.semproj.app.utils.TextFileTools;
-import com.tul.simunek.semproj.app.utils.TimeTools;
+import com.tul.simunek.semproj.utils.Stopwatch;
+import com.tul.simunek.semproj.utils.TextFileTools;
+import com.tul.simunek.semproj.utils.TimeTools;
 
 
 public class SMLogger implements ITestLogger {
@@ -32,7 +32,11 @@ public class SMLogger implements ITestLogger {
         }
         return TextFileTools.tryWriteToFile(this.path, content, SMWrapper.getEncoding());
     }
-    
+    /**
+     * Přetížená WriteToFile pro jeden řetězec
+     * @param content řetězec k zápisu
+     * @return stav zápisu
+     */
     public boolean WriteToFile(String content) {
         return WriteToFile(new String[] {content});
     }

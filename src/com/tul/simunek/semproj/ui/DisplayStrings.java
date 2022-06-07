@@ -1,5 +1,5 @@
 
-package com.tul.simunek.semproj.app.ui;
+package com.tul.simunek.semproj.ui;
 
 import com.tul.simunek.semproj.app.ITestResult;
 import java.util.List;
@@ -97,6 +97,7 @@ public class DisplayStrings {
         var sb = new StringBuilder();
         sb.append(" --- RESULT LISTING ---\n\n");
         sb.append("Listing ").append(list.size()).append(" test results\n\n");
+        sb.append("TESTNAME   SCORE   TIME   DATE   DURATION_ms   SYS_INFO\n\n");
         
         for (var r : list){
             sb.append(r.getTestID()).append("  ");

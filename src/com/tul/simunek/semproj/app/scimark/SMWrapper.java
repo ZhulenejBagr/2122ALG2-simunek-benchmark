@@ -8,8 +8,8 @@ import jnt.scimark2.kernel;
 import com.tul.simunek.semproj.app.EnvVars;
 import com.tul.simunek.semproj.app.ITestResult;
 import com.tul.simunek.semproj.app.ITestWrapper;
-import com.tul.simunek.semproj.app.utils.FileStatus;
-import com.tul.simunek.semproj.app.utils.TextFileTools;
+import com.tul.simunek.semproj.utils.FileStatus;
+import com.tul.simunek.semproj.utils.TextFileTools;
 import java.time.LocalDateTime;
 
 
@@ -157,7 +157,6 @@ public class SMWrapper implements ITestWrapper {
             logger.WriteToFile("Valid config loaded from " + configPath + ", commencing test launch.");
         }
         
-        System.out.println("--- LAUNCHING TEST --- \n\n");
         logger.WriteToFile("Launching test");
         
         Random R = new Random(Constants.RANDOM_SEED);

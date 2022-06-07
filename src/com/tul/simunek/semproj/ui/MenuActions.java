@@ -1,5 +1,5 @@
 
-package com.tul.simunek.semproj.app.ui;
+package com.tul.simunek.semproj.ui;
 
 
 public enum MenuActions {

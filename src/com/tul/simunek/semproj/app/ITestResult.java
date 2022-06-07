@@ -1,9 +1,10 @@
 package com.tul.simunek.semproj.app;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
-public interface ITestResult extends Comparable<ITestResult> {
+public interface ITestResult extends Comparable<ITestResult>, Serializable {
     /**
      * Zjištění testu, který přísluší výsledku
      * @return identifikátor příslušného testu

@@ -1,5 +1,5 @@
 
-package com.tul.simunek.semproj.app.ui;
+package com.tul.simunek.semproj.ui;
 
 import com.tul.simunek.semproj.app.ITestResult;
 import com.tul.simunek.semproj.app.Launcher;
@@ -78,6 +78,7 @@ public class MainUI {
         var select = sc.next();
         for (var test : tests){
             if (select == null ? test.getMenuSelector() == null : select.equals(test.getMenuSelector())){
+                System.out.println("--- LAUNCHING TEST --- \n\n");
                 test.launch();
                 var result = test.getResult();
                 if (result.isScoreValid()){

@@ -1,11 +1,11 @@
-[00 00 02.701] Loading config from C:\Users\Bagr\Desktop\schoolshit\java\ALG2semproj\BenchmarkApp\Tests\SciMark\config.txt ...
-[00 00 02.703] Loaded config is valid
-[00 00 02.704] Valid config loaded from C:\Users\Bagr\Desktop\schoolshit\java\ALG2semproj\BenchmarkApp\Tests\SciMark\config.txt, commencing test launch.
-[00 00 02.704] Launching test
-[00 00 02.708] Running testpass 1
-[00 00 07.649] FFT score 349.95404986765067
-[00 00 14.620] SOR score 1767.5750836888897
-[00 00 20.134] MonteCarlo score 1555.583999848882
-[00 00 25.210] Sparse score 3244.3563131065625
-[00 00 29.361] LU score 10276.171068452002
-[00 00 29.362] Final score 8596.820257481993
+[00 00 13.303] Loading config from C:\Users\Bagr\Desktop\schoolshit\java\ALG2semproj\BenchmarkApp\Tests\SciMark\config.txt ...
+[00 00 13.305] Loaded config is valid
+[00 00 13.306] Valid config loaded from C:\Users\Bagr\Desktop\schoolshit\java\ALG2semproj\BenchmarkApp\Tests\SciMark\config.txt, commencing test launch.
+[00 00 13.306] Launching test
+[00 00 13.310] Running testpass 1
+[00 00 18.545] FFT score 330.8730562102184
+[00 00 25.519] SOR score 1764.015661704307
+[00 00 31.037] MonteCarlo score 1558.4061068964722
+[00 00 36.500] Sparse score 3026.2282778172694
+[00 00 44.648] LU score 10015.649474690925
+[00 00 44.649] Final score 8347.586288659597
